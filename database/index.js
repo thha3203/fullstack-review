@@ -41,10 +41,11 @@ let save = async (repos, callback) => {
     };
   });
   try {
-    await Repo.insertMany(data);
-    return callback(null);
+    await Repo.insertMany(data, {ordered: false}, (err, result) => {
+      callback(null);
+    });
   } catch (error) {
-    return callback(error.message);
+    console.error(error.message);
   }
 };
 
